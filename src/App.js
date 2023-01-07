@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+// import { useState } from 'react';
 import './App.css';
 
-function App() {
+// import Feedback_app  from './components/Feedback_app';
+import History_app from './components/History_app';
+
+
+function App({name,age}) {
+
+  
+  // const [counter,setCounter]= useState(0)
+
+  // const handleCounter = () =>{
+  //   setCounter(counter+1)
+  // }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+   
+   {/* <h2>{counter}</h2>
+   <button onClick={handleCounter}>Plus</button> */}
+   {/* <Feedback_app/> */}
+   <History_app/>
+
+    </>
+    
+
   );
 }
 
