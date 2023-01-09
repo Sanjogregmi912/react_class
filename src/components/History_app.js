@@ -2,7 +2,6 @@ import { useState } from "react"
 const History_app =()=>{
     const [right, setright] = useState(0)
     const [left,setleft] = useState(0)
-    let first = ["hello "]
 
     const [history , sethistory] = useState(" ");
 
