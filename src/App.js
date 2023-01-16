@@ -1,16 +1,13 @@
-
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
-
+import Note from './components/Note';
 
 
 function App() {
-  const [newNote,setNewNote] = useState(' ')
+  const [newNote,setNewNote] = useState('')
   const [notes,setnotes] = useState([])
  const [showAll ,setshowall] =  useState(true)
-
-
  const notestoshow =  showAll ? notes
  : notes.filter(n => n.important === true)
 
@@ -34,26 +31,18 @@ function App() {
       content : newNote,
       date : new Date().toString(),
       important : Math.random() < 0.5
-
-
-     
-
-
     }
-    if(newNote !== null){
+    if(newNote !== ''){
     axios.post("http://localhost:3001/notes",note).then((response)=>{
         console.log(response);
         setnotes(notes.concat(response.data))
+        setNewNote("")
 
   })
   .catch((err)=>{
     console.log(err)
   })
     }
-
-
-    if(newNote !== "")setnotes(notes.concat(note))
-    setNewNote("")
 
   }
 
@@ -70,34 +59,24 @@ function App() {
     }
     else{
       setnotes(notes)
-      
-    }
-    
-
+          }
   }
 const tooglebutton = showAll ? "show impotant" : "show all"
-
-
-
-
   return (
+    
     <>
-   
-      <h2>Notes</h2>
-      <ul>
-        {notestoshow.map(note => <li key = {note.id}><p>{note.content} <button onClick={()=>setdelete(note.id)}>delete</button></p> <p>{note.date}</p></li>)}
-        
-      </ul>
-      <button onClick={()=> setshowall(!showAll)}>{tooglebutton} </button>
-      <form>
-        <input value = {newNote} onChange = {handleInputChange}/> 
-        <button onClick={HandleAdd}> add </button>
-      </form>
+    <h2>Notes</h2>
+    <ul>
       
+      {notes.map(note =>  <Note key= {note.id} note = {note}  setdelete = {()=>setdelete(note.id)}/>) }
+    </ul>
+    <button onClick={()=> setshowall(!showAll)}>{tooglebutton} </button>
+    <form>
+      <input value = {newNote} onChange = {handleInputChange}/> 
+      <button onClick={HandleAdd}> add </button>
+    </form>
     </>
     
-
   );
 }
-
 export default App;
