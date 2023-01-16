@@ -5,9 +5,9 @@ import './App.css';
 
 
 
-function App(props) {
+function App() {
   const [newNote,setNewNote] = useState(' ')
-  const [notes,setnotes] = useState(props.notes)
+  const [notes,setnotes] = useState([])
  const [showAll ,setshowall] =  useState(true)
 
 
@@ -31,13 +31,24 @@ function App(props) {
     // create notes
 
     const note = {
-      id : notes.lenght +1,
       content : newNote,
       date : new Date().toString(),
       important : Math.random() < 0.5
 
 
+     
 
+
+    }
+    if(newNote !== null){
+    axios.post("http://localhost:3001/notes",note).then((response)=>{
+        console.log(response);
+        setnotes(notes.concat(response.data))
+
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
     }
 
 
@@ -49,6 +60,12 @@ function App(props) {
   const setdelete =  (id) =>{
     var response = window.confirm(`do you really want to delete note with id ${id}`)
     if(response === true){
+      axios.delete(`http://localhost:3001/notes/${id}`).then((response)=>{
+        console.log(response)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
       setnotes(notes.filter(n => n.id !== id))
     }
     else{
